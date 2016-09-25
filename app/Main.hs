@@ -2,6 +2,7 @@
 module Main where
 
 import Lib
+import Parsers (originUrl)
 import Prelude hiding (take)
 import Data.Attoparsec.ByteString (parseOnly, endOfInput, skipMany, take)
 import Data.Attoparsec.ByteString.Char8 (anyChar)
