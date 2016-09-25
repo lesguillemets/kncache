@@ -2,6 +2,7 @@
 module Parsers
     (
         originUrl
+      , originWithHeader
     ) where
 
 import Lib
@@ -37,4 +38,5 @@ originUrl = Voice <$> (string "http://" *> ip) <*> path <*> version
 -- >>> parseOnly originUrl . BC.pack $ "http://2.1.9.1/p/s/rr/1.mp3?version=8"
 -- Right (Voice "2.1.9.1" "p/s/rr/1.mp3" 8)
 
-
+originWithHeader :: Parser Voice
+originWithHeader = originUrl <|> (anyChar *> originWithHeader)
