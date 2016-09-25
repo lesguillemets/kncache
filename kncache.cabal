@@ -24,6 +24,8 @@ library
                      , async
                      , text
                      , shelly
+                     , directory
+                     , filepath
   default-language:    Haskell2010
 
 executable kncache
@@ -34,6 +36,10 @@ executable kncache
                      , kncache
                      , bytestring
                      , attoparsec
+                     , async
+                     , shelly
+                     , directory
+                     , filepath
   default-language:    Haskell2010
 
 test-suite kncache-test
