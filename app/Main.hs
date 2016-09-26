@@ -23,7 +23,7 @@ main = do
         g f = do
             p <- parseOnly  myP <$> B.readFile f
             case p of
-                (Left _) -> print p
+                (Left _) -> return ()
                 (Right v) -> do
                     shelly $ handle (home </> ".kncache") f v
                     return ()

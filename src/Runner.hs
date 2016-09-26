@@ -13,7 +13,11 @@ fixMp3 f = run_ "mp3val" [f, "-f", "-nb", "-t"]
 
 handle :: Prelude.FilePath -> Prelude.FilePath -> Voice -> Sh (Async ())
 handle saveDir origFile v = do
-    cp (fromText . pack $ origFile) saveLoc
-    asyncSh . (*> echo "done") . fixMp3 . toTextIgnore $ saveLoc
+    new <- not <$> test_e saveLoc
+    asyncSh $ if new
+       then do
+           cp (fromText . pack $ origFile) saveLoc
+           (*> echo "done") . fixMp3 . toTextIgnore $ saveLoc
+       else echo "skip"
     where
         saveLoc = saveDir </> toFileName v
