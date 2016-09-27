@@ -16,8 +16,11 @@ handle saveDir origFile v = do
     new <- not <$> test_e saveLoc
     asyncSh $ if new
        then do
-           cp (fromText . pack $ origFile) saveLoc
+           cp' (pack origFile) (toTextIgnore saveLoc)
            (*> echo "done") . fixMp3 . toTextIgnore $ saveLoc
        else echo "skip"
     where
         saveLoc = saveDir </> toFileName v
+
+cp' :: Text -> Text -> Sh ()
+cp' from to = run_ "cp" [from, to, "--preserve=all"]
