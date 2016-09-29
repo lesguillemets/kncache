@@ -25,7 +25,7 @@ main = do
             case p of
                 (Left _) -> return ()
                 (Right v) -> do
-                    shelly $ handle (home </> ".kncache") f v
+                    shelly $ handle (home </> ".kncache/voices") f v
                     return ()
     mapM_ g files
 
