@@ -29,3 +29,11 @@ toFileName (Voice ip path v) =
         fname =
             T.takeWhile isDigit . last . T.split (== '/') . decodeUtf8 $ path
         version = T.pack . show $ v
+
+spDir :: Voice -> Text
+spDir (Voice _ path _) = beforeLast . T.split (== '/') . decodeUtf8 $ path
+    where
+        beforeLast :: [a] -> a
+        beforeLast (x:y:[]) = x
+        beforeLast (h:t) = beforeLast t
+        beforeLast [] = error "td"
